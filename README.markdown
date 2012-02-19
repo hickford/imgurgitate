@@ -10,7 +10,7 @@ Install [Node.js](http://nodejs.org/) which includes the wonderful package manag
 
 Install iced-coffee-script
 
-    npm -g install imgurgitate
+    npm -g install iced-coffee-script
 
 Now install imgurgitate
 
