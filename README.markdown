@@ -10,8 +10,7 @@ Install [Node.js](http://nodejs.org/) which includes the wonderful package manag
 
 Now install imgurgitate
 
-    npm update
-
+    npm -g install imgurgitate
 
 Usage
 ----
