@@ -20,5 +20,5 @@ Usage
 ----
 
     Download a Redditor's imgur uploads to disk
-    Usage: node ./imgurgitate.js user1 [user2]
+    Usage: imgurgitate user
 
