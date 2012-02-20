@@ -2,9 +2,13 @@
   "author": "Matt Hickford <matt.hickford@gmail.com> (http://matt-hickford.github.com/)",
   "name": "imgurgitate",
   "description": "Download a Redditor's imgur uploads",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "https://github.com/matt-hickford/imgurgitate",
-  "bin": "lib/imgurgitate.js",
+  "directories": {
+    "lib": "./lib"
+  },
+  "main": "./lib/imgurgitate.js",
+  "bin": "./lib/imgurgitate.js",
   "preferGlobal": true,
   "repository": {
     "type": "git",
