@@ -15,7 +15,7 @@ Install imgurgitate using the wonderful package manager `npm`
 
     npm -g install imgurgitate
 
-An imgurgitate will appear in your path or `~/node_modules/.bin`
+The script `imgurgitate` will be installed in your path or if you omit the `-g` flag to `~/node_modules/.bin` or `%appdata%\npm` (Windows).
 
 Usage
 ----
