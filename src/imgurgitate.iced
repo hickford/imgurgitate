@@ -11,7 +11,7 @@ util = require('util')
 
 imgur_url_pattern = RegExp("http://((www)|(i)\.)?imgur.com/[./a-zA-Z0-9&,]+","ig")
 
-imgur_album_url_pattern = RegExp("imgur\.com/a/[a-zA-Z0-9]+","i")
+imgur_album_url_pattern = RegExp("imgur\.com/a/([a-zA-Z0-9]+)","i")
 imgur_hashes_pattern = RegExp("imgur\.com/(([a-zA-Z0-9]{5}[&,]?)+)","i")
 
 imgur_image_pattern = RegExp("http://(www\.)?(i\.)?imgur\.com/.{3,7}\.((jpg)|(gif))","ig")
@@ -120,14 +120,22 @@ extract_img_urls = (children) ->
     
     
 if (!module.parent)        
-    argv = require('optimist').usage("Download a Redditor's imgur uploads to disk\nUsage: $0 user1 [user2]").demand(1).argv
+    argv = require('optimist').usage(
+        ["Download Imgur albums to disk","Usage: $0 album_url","Usage: $0 reddit_user"].join("\n")
+        ).demand(1).argv
     for arg in argv._
-        user = arg
-        console.log(user)
-        await list_user_images(user,defer(hashes))
-        hashes = underscore.unique(hashes)
-        folder = "#{user}"
+        console.log(arg)
+        album_match = imgur_album_url_pattern.exec(arg)
+        if album_match
+            url = arg
+            folder = album_match[1]
+            await browse_album(url,defer(hashes))
+        else
+            user = arg
+            await list_user_images(user,defer(hashes))
+            hashes = underscore.unique(hashes)
+            folder = user
         if (!path.existsSync(folder))
             fs.mkdirSync(folder)
         for hash in hashes
-            await download_imgur(hash,user,defer())
+            await download_imgur(hash,folder,defer())
