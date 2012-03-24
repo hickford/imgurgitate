@@ -9,6 +9,9 @@
   },
   "main": "./lib/imgurgitate.js",
   "bin": "./lib/imgurgitate.js",
+  "scripts": {
+    "prepublish": "iced -o lib -c src/imgurgitate.iced"
+  },
   "files": ["README.markdown"],
   "preferGlobal": true,
   "repository": {
