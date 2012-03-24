@@ -1,7 +1,7 @@
 {
   "author": "Matt Hickford <matt.hickford@gmail.com> (http://matt-hickford.github.com/)",
   "name": "imgurgitate",
-  "description": "Download a Redditor's imgur uploads",
+  "description": "Download Imgur albums to disk",
   "version": "0.0.2",
   "homepage": "https://github.com/matt-hickford/imgurgitate",
   "directories": {
@@ -9,6 +9,7 @@
   },
   "main": "./lib/imgurgitate.js",
   "bin": "./lib/imgurgitate.js",
+  "files": ["README.markdown"],
   "preferGlobal": true,
   "repository": {
     "type": "git",
