@@ -30,6 +30,9 @@ Build and release
 (These instructions are useful only to me)
 
     iced -o lib -c src/imgurgitate.iced
+    
+Prepend a shebang line `#!/usr/bin/env node` to the file `lib/imgurgitate.js`
+    
     npm publish
-
-Prepend a shebang line `#!/usr/bin/env node` to the js file `lib/imgurgitate.js`
+    
+I don't understand why `iced` doesn't make a shebang line.
