@@ -12,7 +12,6 @@
   "scripts": {
     "prepublish": "iced -o lib -c src/imgurgitate.iced"
   },
-  "files": ["README.markdown"],
   "preferGlobal": true,
   "repository": {
     "type": "git",
