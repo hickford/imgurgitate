@@ -12,7 +12,7 @@
   "main": "./lib/imgurgitate.js",
   "bin": "./lib/imgurgitate.js",
   "scripts": {
-    "prepublish": "iced -o lib -c src"
+    "prepublish": "cake build"
   },
   "preferGlobal": true,
   "repository": {
