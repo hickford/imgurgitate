@@ -1,21 +1,23 @@
 {
   "author": "Matt Hickford <matt.hickford@gmail.com> (http://matt-hickford.github.com/)",
   "name": "imgurgitate",
-  "description": "Download Imgur albums to disk",
+  "description": "Download Imgur albums to disk. Download all of a Redditor's albums to disk.",
   "version": "0.0.2",
   "homepage": "https://github.com/matt-hickford/imgurgitate",
+  "bugs": "https://github.com/matt-hickford/imgurgitate/issues",
+  "keywords": ["imgur","album","reddit","download"],
   "directories": {
     "lib": "./lib"
   },
   "main": "./lib/imgurgitate.js",
   "bin": "./lib/imgurgitate.js",
   "scripts": {
-    "prepublish": "iced -o lib -c src/imgurgitate.iced"
+    "prepublish": "iced -o lib -c src"
   },
   "preferGlobal": true,
   "repository": {
     "type": "git",
-    "url": "git://github.com/matt-hickford/imgurgitate.git"
+    "url": "https://matt-hickford@github.com/matt-hickford/imgurgitate.git"
   },
   "engines": {
     "node": "~0.6.11"
@@ -29,6 +31,6 @@
     "optimist":"~0.3.1"
   },
   "devDependencies": {
-    "iced-coffee-script":"~1.2.0p"
+    "iced-coffee-script":"~1.2.0u"
   }
 }
