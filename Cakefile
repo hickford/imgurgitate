@@ -1,5 +1,6 @@
 path = require 'path'
 fs = require 'fs'
+wrench = require 'wrench'
 
 task 'build', 'Compile Coffeescript source to Javascript', ->
     command = require 'iced-coffee-script/lib/coffee-script/command'
@@ -17,11 +18,9 @@ task 'build', 'Compile Coffeescript source to Javascript', ->
         await setTimeout(defer(),1000) 
 
     fs.writeFileSync(script_path,[shebang,fs.readFileSync(script_path)].join("\n"))
-    
-    
+        
     
 task 'clean', 'Clean build matter', ->
-    wrench = require 'wrench'
     wrench.rmdirSyncRecursive('lib',true)
     wrench.rmdirSyncRecursive('-p',true)
     
