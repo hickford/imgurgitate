@@ -121,7 +121,10 @@ extract_img_urls = (children) ->
     
 if (!module.parent)        
     argv = require('optimist').usage(
-        ["Download Imgur albums to disk","Usage: $0 album_url","Usage: $0 reddit_user"].join("\n")
+        ["Download Imgur albums to disk",
+        "Usage: $0 album_url",
+        "Download all of a Redditor's albums to disk",
+        "Usage: $0 reddit_user"].join("\n")
         ).demand(1).argv
     for arg in argv._
         console.log(arg)
