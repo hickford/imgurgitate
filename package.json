@@ -4,13 +4,22 @@
   "description": "Download Imgur albums to disk. Download all of a Redditor's albums to disk.",
   "version": "0.0.3",
   "homepage": "https://github.com/matt-hickford/imgurgitate",
-  "bugs": "https://github.com/matt-hickford/imgurgitate/issues",
-  "keywords": ["imgur","album","reddit","download"],
+  "bugs": {
+    "name": "https://github.com/matt-hickford/imgurgitate/issues"
+  },
+  "keywords": [
+    "imgur",
+    "album",
+    "reddit",
+    "download"
+  ],
   "directories": {
     "lib": "./lib"
   },
   "main": "./lib/imgurgitate.js",
-  "bin": "./lib/imgurgitate.js",
+  "bin": {
+    "imgurgitate": "./lib/imgurgitate.js"
+  },
   "scripts": {
     "prepublish": "icake build",
     "postpublish": "icake clean"
@@ -24,15 +33,16 @@
     "node": "~0.6.11"
   },
   "dependencies": {
-    "htmlparser2":"~2.2.3",
-    "http-get":"~0.3.13",
-    "prettyjson":"~0.3.1",
-    "request":"~2.9.100",
-    "underscore":"~1.3.1",
-    "optimist":"~0.3.1"
+    "htmlparser2": "~2.2.3",
+    "http-get": "~0.3.13",
+    "prettyjson": "~0.3.1",
+    "request": "~2.9.100",
+    "underscore": "~1.3.1",
+    "optimist": "~0.3.1"
   },
   "devDependencies": {
-    "iced-coffee-script":"~1.2.0u",
-    "wrench":"~1.3.7"
-  }
+    "iced-coffee-script": "~1.2.0u",
+    "wrench": "~1.3.7"
+  },
+  "optionalDependencies": {}
 }
