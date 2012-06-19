@@ -11,7 +11,7 @@ util = require('util')
 
 imgur_url_pattern = RegExp("http://((www)|(i)\.)?imgur.com/[./a-zA-Z0-9&,]+","ig")
 
-imgur_album_url_pattern = RegExp("imgur\.com/a/([a-zA-Z0-9]+)","i")
+imgur_album_url_pattern = RegExp("http://(www\.)?imgur\.com/a/([a-zA-Z0-9]+)","i")
 imgur_hashes_pattern = RegExp("imgur\.com/(([a-zA-Z0-9]{5}[&,]?)+)","i")
 
 imgur_image_pattern = RegExp("http://(www\.)?(i\.)?imgur\.com/.{3,7}\.((jpg)|(gif))","ig")
@@ -36,13 +36,15 @@ list_user_images = (user,callback,after=null) ->
         #console.log(urls)
         
         for url in urls
-            if imgur_album_url_pattern.exec(url)
-                #console.log('album',url)
-                await browse_album(url,defer(contents))
-                hashes = hashes.concat(contents)
+            album_match = imgur_album_url_pattern.exec(url)
+            if album_match
+                album_url = album_match[0]
+                console.log(album_url,"album")
+                await browse_album(album_url,defer(contents))
+                if contents
+                    hashes = hashes.concat(contents)
             else
                 hashes = hashes.concat(imgur_hashes(url))
-        #console.log(hashes)
         if after
             later = []
             await list_user_images(user,defer(later),after)
@@ -56,21 +58,30 @@ list_user_images = (user,callback,after=null) ->
 download_imgur = (hash,user,callback) ->
     #console.log(url, destination)
     #url1 = "http://imgur.com/#{hash}"   # returns 200 if exists or 500 if not
-    url = "http://i.imgur.com/#{hash}.jpg" # returns 200 regardless :\
+    # sometimes see http code 304, don't understand when
+    url = "http://i.imgur.com/#{hash}.jpg" # returns 200 regardless :/
     await httpget.head({url:url},defer(err,result))
-    if (!err and result.code==200 and result.headers['content-length']!=669)    # 669 is length of the 'image missing message'
+    if (!err and result.code==200)
+        if ( result.headers['content-length'] == '503')
+            # length of the 'image missing message'
+            console.warn("#{url} no longer avaliable")
+            callback(err)
+            return
         extension = result.headers['content-type'].replace('image/','')
         timestamp = new Date(result.headers['last-modified'])
         url = "http://i.imgur.com/#{hash}.jpg"
         destination = path.join("#{user}","#{user}-#{timestamp.toISOString().replace(/:/g,'.')}-#{hash}.#{extension}")
         await fs.stat(destination,defer(err, stats))
-        if (!err and stats.size == parseInt(result.headers['content-length']))
+
+        if (!err && stats.size > parseInt(result.headers['content-length']))
+            console.warn(url,'conflicts with',destination)           
+        else if (!err && stats.size == parseInt(result.headers['content-length']))
             console.log(url,destination,'previously')
         else    
             console.log(url,destination)
             await httpget.get({url:url},destination,defer(err,result))
+            # change modification date of downloaded file
             await fs.utimes(destination,timestamp,timestamp,defer())
-        # change modification date of downloaded file
     callback(err)
    
     
