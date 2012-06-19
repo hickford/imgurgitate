@@ -1,17 +1,19 @@
 #!/usr/bin/env iced
 # http://maxtaco.github.com/coffee-script/
 request = require('request')
-prettyjson = require('prettyjson')
-htmlparser2 = require('htmlparser2')
 underscore = require('underscore')
 httpget = require('http-get')
 path = require('path')
 fs = require('fs')
 util = require('util')
 
+imgur_album_url_pattern = RegExp("^http://(?:www\.)?imgur\.com/a/([a-zA-Z0-9]+)","i")
+
+
+
 imgur_url_pattern = RegExp("http://((www)|(i)\.)?imgur.com/[./a-zA-Z0-9&,]+","ig")
 
-imgur_album_url_pattern = RegExp("http://(www\.)?imgur\.com/a/([a-zA-Z0-9]+)","i")
+
 imgur_hashes_pattern = RegExp("imgur\.com/(([a-zA-Z0-9]{5}[&,]?)+)","i")
 
 imgur_image_pattern = RegExp("http://(www\.)?(i\.)?imgur\.com/.{3,7}\.((jpg)|(gif))","ig")
@@ -21,7 +23,7 @@ rurl = (user,after=null) ->
 
 list_user_images = (user,callback,after=null) ->
     url = rurl(user,after)
-    console.log(url)
+    console.log("history",url)
     await request(url, defer(error,response))
     hashes = []
     if (!error && response.statusCode == 200)
@@ -31,16 +33,15 @@ list_user_images = (user,callback,after=null) ->
             console.warn(j)
             return
         after = j.data.after
-        #console.log(prettyjson.render(j.data))
         urls = extract_img_urls(j.data.children)
         #console.log(urls)
         
         for url in urls
             album_match = imgur_album_url_pattern.exec(url)
             if album_match
-                album_url = album_match[0]
-                console.log(album_url,"album")
-                await browse_album(album_url,defer(contents))
+                id = album_match[1]
+                console.log("album",album_match[0])
+                await album_to_hashes(id,defer(contents))
                 if contents
                     hashes = hashes.concat(contents)
             else
@@ -91,21 +92,16 @@ imgur_hashes = (url) ->
     if match
        hashes = match[1].split(/[,&]/) 
     return hashes
-
-browse_album = (url,callback) ->
-    # callback we have an async method inside
-    hashes = []
+    
+album_to_hashes = (album_id,callback) ->
+    # http://api.imgur.com/resources_anon#album
+    url = "http://api.imgur.com/2/album/#{album_id}.json"
     await request(url, defer(error,response))
     if (!error && response.statusCode == 200)
-        handler = new htmlparser2.DefaultHandler()
-        parser = new htmlparser2.Parser(handler)
-        parser.parseComplete(response.body)
-        #console.log('browsing')
-        for element in htmlparser2.DomUtils.getElements({class:"image"},handler.dom)
-            hash = element.attribs['id']
-            hashes.push(hash)
+        j = JSON.parse(response.body)
+        hashes = (x.image.hash for x in j.album.images)
     callback(hashes)
-        
+       
 extract_img_urls = (children) ->
     urls = []
     for thing in children
@@ -141,9 +137,9 @@ if (!module.parent)
         console.log(arg)
         album_match = imgur_album_url_pattern.exec(arg)
         if album_match
-            url = arg
-            folder = album_match[1]
-            await browse_album(url,defer(hashes))
+            id = album_match[1]
+            folder = id
+            await album_to_hashes(id,defer(hashes))
         else
             user = arg
             await list_user_images(user,defer(hashes))
