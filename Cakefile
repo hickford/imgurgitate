@@ -2,7 +2,8 @@ path = require 'path'
 fs = require 'fs'
 wrench = require 'wrench'
 
-task 'build', 'Compile Coffeescript source to Javascript', ->
+task 'build', 'Compile IcedCoffeeScript source to Javascript', ->
+    invoke 'clean'
     command = require 'iced-coffee-script/lib/coffee-script/command'
     process.argv[2..]=['-o','lib','-c','src']
     command.run()   # alas, this returns early and doesn't indicate error
@@ -16,7 +17,7 @@ task 'build', 'Compile Coffeescript source to Javascript', ->
     # wait until script built
     while ! path.existsSync(script_path)
         await setTimeout(defer(),1000) 
-
+        
     fs.writeFileSync(script_path,[shebang,fs.readFileSync(script_path)].join("\n"))
         
     
