@@ -33,11 +33,13 @@ Download an album:
    
 
    
-Build and publish
+Development
 ----
 
 You only need to read these instructions if you would like to develop the software. First, install [Iced CoffeeScript](http://maxtaco.github.com/coffee-script/) `npm install -g iced-coffee-script`, then
 
+    git clone https://github.com/matt-hickford/imgurgitate.git
+    
     icake build
     node lib/imgurgitate.js
     icake clean

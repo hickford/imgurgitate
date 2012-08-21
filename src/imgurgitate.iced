@@ -8,15 +8,10 @@ fs = require('fs')
 util = require('util')
 
 imgur_album_url_pattern = RegExp("^http://(?:www\.)?imgur\.com/a/([a-zA-Z0-9]+)","i")
-
-
-
-imgur_url_pattern = RegExp("http://((www)|(i)\.)?imgur.com/[./a-zA-Z0-9&,]+","ig")
-
-
+imgur_url_pattern = RegExp("^http://((www)|(i)\.)?imgur.com/[./a-zA-Z0-9&,]+","ig")
 imgur_hashes_pattern = RegExp("imgur\.com/(([a-zA-Z0-9]{5}[&,]?)+)","i")
-
-imgur_image_pattern = RegExp("http://(www\.)?(i\.)?imgur\.com/.{3,7}\.((jpg)|(gif))","ig")
+imgur_image_pattern = RegExp("^http://(www\.)?(i\.)?imgur\.com/.{3,7}\.((jpg)|(gif))","ig")
+reddit_user_url_pattern = RegExp("^http://(?:www.)?reddit.com/user/([^/]+)","ig")
 
 rurl = (user,after=null) ->
     "http://reddit.com/user/#{user}.json" + if after then "?after=#{after}" else ""
@@ -50,6 +45,8 @@ list_user_images = (user,callback,after=null) ->
             later = []
             await list_user_images(user,defer(later),after)
             hashes = hashes.concat(later)
+        else
+            console.log("history","over")
     else if error
         throw error
     else if response.statusCode != 200
@@ -141,11 +138,15 @@ if (!module.parent)
             folder = id
             await album_to_hashes(id,defer(hashes))
         else
-            user = arg
+            rurl_match = reddit_user_url_pattern.exec(arg)
+            if rurl_match
+                user = rurl_match[1]
+            else
+                user = arg
             await list_user_images(user,defer(hashes))
             hashes = underscore.unique(hashes)
             folder = user
-        if (!path.existsSync(folder))
+        if (!fs.existsSync(folder))
             fs.mkdirSync(folder)
         for hash in hashes
             await download_imgur(hash,folder,defer())
