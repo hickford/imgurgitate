@@ -15,7 +15,7 @@ task 'build', 'Compile IcedCoffeeScript source to Javascript', ->
     shebang = "#!/usr/bin/env node"  
 
     # wait until script built
-    while ! path.existsSync(script_path)
+    while ! fs.existsSync(script_path)
         await setTimeout(defer(),1000) 
         
     fs.writeFileSync(script_path,[shebang,fs.readFileSync(script_path)].join("\n"))

@@ -9,8 +9,8 @@ util = require('util')
 
 imgur_album_url_pattern = RegExp("^http://(?:www\.)?imgur\.com/a/([a-zA-Z0-9]+)","i")
 imgur_url_pattern = RegExp("^http://((www)|(i)\.)?imgur.com/[./a-zA-Z0-9&,]+","ig")
-imgur_hashes_pattern = RegExp("imgur\.com/(([a-zA-Z0-9]{5}[&,]?)+)","i")
-imgur_image_pattern = RegExp("^http://(www\.)?(i\.)?imgur\.com/.{3,7}\.((jpg)|(gif))","ig")
+imgur_hashes_pattern = RegExp("imgur\.com/(([a-zA-Z0-9]{5,}[&,]?)+)","i")
+imgur_image_pattern = RegExp("^http://(www\.)?(i\.)?imgur\.com/.{3}\.((jpg)|(gif))","ig")
 reddit_user_url_pattern = RegExp("^http://(?:www.)?reddit.com/user/([^/]+)","ig")
 
 rurl = (user,after=null) ->
@@ -133,10 +133,14 @@ if (!module.parent)
     for arg in argv._
         console.log(arg)
         album_match = imgur_album_url_pattern.exec(arg)
+        
         if album_match
             id = album_match[1]
             folder = id
             await album_to_hashes(id,defer(hashes))
+        else if imgur_url_pattern.exec(arg)
+            hashes = imgur_hashes(arg)
+            folder = hashes[0]
         else
             rurl_match = reddit_user_url_pattern.exec(arg)
             if rurl_match
@@ -146,6 +150,7 @@ if (!module.parent)
             await list_user_images(user,defer(hashes))
             hashes = underscore.unique(hashes)
             folder = user
+            
         if (!fs.existsSync(folder))
             fs.mkdirSync(folder)
         for hash in hashes
