@@ -24,7 +24,7 @@ Install imgurgitate using the wonderful package manager `npm` distributed with N
 
 The executable script `imgurgitate` will be installed in your path alongside `node` and `npm`, or on Windows to `%appdata%\npm`. If you omit the `-g` switch, to `~/node_modules/.bin`. See the npm's [folders(1)](http://npmjs.org/doc/folders.html)
    
-Tests
+Example usage
 -----
 
 Download an album:
