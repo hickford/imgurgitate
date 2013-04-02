@@ -1,14 +1,14 @@
 Imgurgitate
 =========
 
-Download [Imgur](http://imgur.com) albums to disk. Download all of a [Redditor's](http://www.reddit.com/) albums to disk.
+Download [Imgur](http://imgur.com) albums to disk. Download a [Redditor's](http://www.reddit.com/) albums to disk.
 
 Usage
 ----
 
     Download Imgur albums to disk
     Usage: imgurgitate album_url
-    Usage imgurgitate reddit_user
+    Usage: imgurgitate reddit_user
 
 Prerequisites
 ----------
@@ -31,21 +31,25 @@ Download an album:
 
     imgurgitate http://imgur.com/a/SS6V5
    
-
    
 Development
 ----
 
 [![Build Status](https://travis-ci.org/matt-hickford/imgurgitate.png?branch=master)](https://travis-ci.org/matt-hickford/imgurgitate)
 
-You only need to read these instructions if you would like to develop the software. First, install [Iced CoffeeScript](http://maxtaco.github.com/coffee-script/) `npm install -g iced-coffee-script`, then
+Clone this project:
 
     git clone https://github.com/matt-hickford/imgurgitate.git
-    
-    icake build
-    node lib/imgurgitate.js
-    icake clean
+    cd imgurgitate
 
-To publish to [npm registry](https://new.npmjs.org/package/imgurgitate)
+Install development dependencies (principally [Iced CoffeeScript](http://maxtaco.github.com/coffee-script/))
+
+    npm install --dev
+
+Build the Coffeescripts to Javascript
+
+    icake build
+
+Publish to [npm registry](https://new.npmjs.org/package/imgurgitate)
     
     npm publish

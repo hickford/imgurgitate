@@ -1,11 +1,12 @@
 #!/usr/bin/env iced
-# http://maxtaco.github.com/coffee-script/
-request = require('request')
-underscore = require('underscore')
-httpget = require('http-get')
-path = require('path')
-fs = require('fs')
-util = require('util')
+# from http://maxtaco.github.com/coffee-script/
+
+path = require 'path'
+fs = require 'fs'
+util = require 'util'
+underscore = require 'underscore'
+request = require 'request'
+httpget = require 'http-get'
 
 imgur_album_url_pattern = RegExp("^http://(?:www\.)?imgur\.com/a/([a-zA-Z0-9]+)","i")
 imgur_url_pattern = RegExp("^http://((www)|(i)\.)?imgur.com/[./a-zA-Z0-9&,]+","ig")
@@ -127,7 +128,7 @@ if (!module.parent)
     argv = require('optimist').usage(
         ["Download Imgur albums to disk",
         "Usage: $0 album_url",
-        "Download all of a Redditor's albums to disk",
+        "Download a Redditor's albums to disk",
         "Usage: $0 reddit_user"].join("\n")
         ).demand(1).argv
     for arg in argv._
