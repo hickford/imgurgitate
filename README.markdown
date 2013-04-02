@@ -48,6 +48,6 @@ Build the Coffeescripts to Javascript
 
     icake build
 
-Publish to [npm registry](https://new.npmjs.org/package/imgurgitate)
+Publish to [npm registry](https://npmjs.org/package/imgurgitate)
     
     npm publish

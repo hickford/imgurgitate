@@ -5,7 +5,7 @@
   "version": "0.0.7",
   "homepage": "https://github.com/matt-hickford/imgurgitate",
   "bugs": {
-    "name": "https://github.com/matt-hickford/imgurgitate/issues"
+    "url": "https://github.com/matt-hickford/imgurgitate/issues"
   },
   "keywords": [
     "imgur",
