@@ -30,7 +30,7 @@
     "url": "https://matt-hickford@github.com/matt-hickford/imgurgitate.git"
   },
   "engines": {
-    "node": "~0.8.0"
+    "node": "0.8.x"
   },
   "dependencies": {
     "http-get": ">=0.5.7",
