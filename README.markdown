@@ -1,7 +1,7 @@
 Imgurgitate
 =========
 
-Download [Imgur](http://imgur.com) albums to disk. Download a [Redditor's](http://www.reddit.com/) albums to disk.
+Download [Imgur](http://imgur.com) albums. Download all a  [Redditor's](http://www.reddit.com/) albums.
 
 Usage
 ----
@@ -10,19 +10,14 @@ Usage
     Usage: imgurgitate album_url
     Usage: imgurgitate reddit_user
 
-Prerequisites
-----------
-
-* [Node.js](http://nodejs.org/)
-
 Installation
 ----------
 
-Install imgurgitate using the wonderful package manager `npm` distributed with Node.
+First install [Node.js](http://nodejs.org/). Then install imgurgitate using the wonderful package manager `npm` distributed with Node.
 
     npm -g install imgurgitate
 
-The executable script `imgurgitate` will be installed in your path alongside `node` and `npm`, or on Windows to `%appdata%\npm`. If you omit the `-g` switch, to `~/node_modules/.bin`. See the npm's [folders(1)](http://npmjs.org/doc/folders.html)
+The executable script `imgurgitate` will be installed in your path alongside `node` and `npm`, or on Windows to `%appdata%\npm`. See npm's [folders(1)](http://npmjs.org/doc/folders.html)
    
 Example usage
 -----
@@ -31,6 +26,9 @@ Download an album:
 
     imgurgitate http://imgur.com/a/SS6V5
    
+Download all a Redditor's albums:
+
+    imgurgitate http://www.reddit.com/user/Shitty_Watercolour
    
 Development
 ----
