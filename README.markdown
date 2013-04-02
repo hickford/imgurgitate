@@ -36,6 +36,8 @@ Download an album:
 Development
 ----
 
+[![Build Status](https://travis-ci.org/matt-hickford/imgurgitate.png?branch=master)](https://travis-ci.org/matt-hickford/imgurgitate)
+
 You only need to read these instructions if you would like to develop the software. First, install [Iced CoffeeScript](http://maxtaco.github.com/coffee-script/) `npm install -g iced-coffee-script`, then
 
     git clone https://github.com/matt-hickford/imgurgitate.git
