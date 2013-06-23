@@ -27,7 +27,7 @@
   "preferGlobal": true,
   "repository": {
     "type": "git",
-    "url": "https://matt-hickford@github.com/matt-hickford/imgurgitate.git"
+    "url": "https://github.com/matt-hickford/imgurgitate.git"
   },
   "engines": {
     "node": "0.8 - 0.10"
