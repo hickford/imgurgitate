@@ -13,6 +13,8 @@ Usage
 Installation
 ----------
 
+[![NPM version](https://badge.fury.io/js/imgurgitate.png)](https://npmjs.org/package/imgurgitate)
+
 First install [Node.js](http://nodejs.org/). Then install imgurgitate using the wonderful package manager `npm` distributed with Node.
 
     npm -g install imgurgitate
