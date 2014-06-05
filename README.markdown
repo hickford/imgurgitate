@@ -35,11 +35,11 @@ Download all a Redditor's albums:
 Development
 ----
 
-[![Build Status](https://travis-ci.org/matt-hickford/imgurgitate.png?branch=master)](https://travis-ci.org/matt-hickford/imgurgitate)
+[![Build Status](https://travis-ci.org/colonelpanic/imgurgitate.png?branch=master)](https://travis-ci.org/colonelpanic/imgurgitate)
 
 Clone this project:
 
-    git clone https://github.com/matt-hickford/imgurgitate.git
+    git clone https://github.com/colonelpanic/imgurgitate.git
     cd imgurgitate
 
 Install development dependencies (principally [Iced CoffeeScript](http://maxtaco.github.com/coffee-script/))
