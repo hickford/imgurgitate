@@ -1,11 +1,11 @@
 {
-  "author": "Matt Hickford <matt.hickford@gmail.com> (http://matt-hickford.github.com/)",
+  "author": "Matt Hickford <matt.hickford@gmail.com> (http://hickford.github.io/)",
   "name": "imgurgitate",
   "description": "Download Imgur albums to disk. Download all of a Redditor's albums to disk.",
   "version": "0.0.7",
-  "homepage": "https://github.com/matt-hickford/imgurgitate",
+  "homepage": "https://github.com/hickford/imgurgitate",
   "bugs": {
-    "url": "https://github.com/matt-hickford/imgurgitate/issues"
+    "url": "https://github.com/hickford/imgurgitate/issues"
   },
   "keywords": [
     "imgur",
@@ -27,7 +27,7 @@
   "preferGlobal": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/matt-hickford/imgurgitate.git"
+    "url": "https://github.com/hickford/imgurgitate.git"
   },
   "engines": {
     "node": "0.8 - 0.10"
