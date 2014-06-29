@@ -54,7 +54,39 @@ list_user_images = (user,callback,after=null) ->
         console.warn(response)
     callback(hashes)
    
-download_imgur = (hash,user,callback) ->
+list_user_albums = (user,callback,after=null) ->
+    url = rurl(user,after)
+    console.log("history",url)
+    await request(url, defer(error,response))
+    albums = []
+    if (!error && response.statusCode == 200)
+
+        j = JSON.parse(response.body)
+        if not j.data
+            console.warn(j)
+            return
+        after = j.data.after
+        urls = extract_img_urls(j.data.children)
+        #console.log(urls)
+        
+        for url in urls
+            album_match = imgur_album_url_pattern.exec(url)
+            if album_match
+                id = album_match[1]
+                albums = albums.concat([id])
+        if after
+            later = []
+            await list_user_albums(user,defer(later),after)
+            albums = albums.concat(later)
+        else
+            console.log("history","over")
+    else if error
+        throw error
+    else if response.statusCode != 200
+        console.warn(response)
+    callback(albums)
+
+download_imgur = (hash,folder,callback) ->
     #console.log(url, destination)
     #url1 = "http://imgur.com/#{hash}"   # returns 200 if exists or 500 if not
     # sometimes see http code 304, don't understand when
@@ -69,7 +101,8 @@ download_imgur = (hash,user,callback) ->
         extension = result.headers['content-type'].replace('image/','')
         timestamp = new Date(result.headers['last-modified'])
         url = "http://i.imgur.com/#{hash}.jpg"
-        destination = path.join("#{user}","#{user}-#{timestamp.toISOString().replace(/:/g,'.')}-#{hash}.#{extension}")
+        name = folder.split(path.sep).slice(-1)[0]
+        destination = path.join("#{folder}","#{name}-#{timestamp.toISOString().replace(/:/g,'.')}-#{hash}.#{extension}")
         await fs.stat(destination,defer(err, stats))
 
         if (!err && stats.size > parseInt(result.headers['content-length']))
@@ -127,10 +160,10 @@ extract_img_urls = (children) ->
 if (!module.parent)        
     argv = require('optimist').usage(
         ["Download Imgur albums to disk",
-        "Usage: $0 album_url",
-        "Download a Redditor's albums to disk",
-        "Usage: $0 reddit_user"].join("\n")
-        ).demand(1).argv
+        "Usage: $0 url",
+        "Where url is either an Imgur album or a Reddit user"].join("\n"))
+        .boolean("albums").describe("albums", "In the case url is a Reddit user, ignore loose images and download only their albums.")
+        .demand(1).argv
     for arg in argv._
         console.log(arg)
         album_match = imgur_album_url_pattern.exec(arg)
@@ -148,6 +181,22 @@ if (!module.parent)
                 user = rurl_match[1]
             else
                 user = arg
+
+            if (!fs.existsSync(user))
+                fs.mkdirSync(user)
+
+            if argv.albums
+                await list_user_albums(user,defer(albums))
+                for album in underscore.unique(albums)
+                    await album_to_hashes(album,defer(hashes))
+                    folder = path.join(user, album)
+                    if (!fs.existsSync(folder))
+                        fs.mkdirSync(folder)
+                    for hash in hashes
+                        await download_imgur(hash,folder,defer())
+
+                continue
+
             await list_user_images(user,defer(hashes))
             hashes = underscore.unique(hashes)
             folder = user
