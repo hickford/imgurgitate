@@ -2,7 +2,7 @@
   "author": "Matt Hickford <matt.hickford@gmail.com> (http://hickford.github.io/)",
   "name": "imgurgitate",
   "description": "Download Imgur albums to disk. Download all of a Redditor's albums to disk.",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "homepage": "https://github.com/hickford/imgurgitate",
   "bugs": {
     "url": "https://github.com/hickford/imgurgitate/issues"
