@@ -35,7 +35,7 @@ Download all a Redditor's albums:
 Development
 ----
 
-[![Build Status](https://travis-ci.org/hickford/imgurgitate.png?branch=master)](https://travis-ci.org/hickford/imgurgitate)
+[![Build Status](https://travis-ci.org/hickford/imgurgitate.svg?branch=master)](https://travis-ci.org/hickford/imgurgitate)
 
 Clone this project:
 
